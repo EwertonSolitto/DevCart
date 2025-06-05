@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface Product {
   id: string;
@@ -10,8 +11,13 @@ interface Product {
 }
 
 export default function ProductCard({ product }: { product: Product }) {
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity 
+      style={styles.card}
+      onPress={() => navigation.navigate('Product' as never, { product } as never)}
+    >
       <Image source={{ uri: product.image }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.name}>{product.name}</Text>
