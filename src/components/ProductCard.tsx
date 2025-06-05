@@ -1,0 +1,59 @@
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+
+interface Product {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+  rating: number;
+}
+
+export default function ProductCard({ product }: { product: Product }) {
+  return (
+    <TouchableOpacity style={styles.card}>
+      <Image source={{ uri: product.image }} style={styles.image} />
+      <View style={styles.info}>
+        <Text style={styles.name}>{product.name}</Text>
+        <Text style={styles.price}>R$ {product.price.toFixed(2)}</Text>
+        <Text style={styles.rating}>⭐ {product.rating}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  info: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  price: {
+    fontSize: 14,
+    color: '#1E90FF',
+  },
+  rating: {
+    fontSize: 12,
+    color: '#888',
+  },
+});
