@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Button, Alert } from 'react-native';
 import { useCartStore } from '../store/cartStore';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CheckoutScreen() {
+  const navigation = useNavigation();
   const cart = useCartStore((state) => state.cart);
   const clearCart = useCartStore((state) => state.clearCart);
 
@@ -14,6 +16,7 @@ export default function CheckoutScreen() {
   const handleCheckout = () => {
     Alert.alert('Pedido confirmado!', 'Obrigado pela sua compra!');
     clearCart();
+    navigation.navigate('Status')
   };
 
   return (
