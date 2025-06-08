@@ -12,6 +12,7 @@ import { useFavoriteStore } from '../store/favoriteStore';
 import { useCartStore } from '../store/cartStore';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import OrderStatusScreen from '../screens/orderStatusScreen';
+import OrdersScreen from '../screens/OrdersScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -58,6 +59,7 @@ export default function AppNavigator() {
           if (route.name === 'Home') return <FontAwesome name='home' size={size} color={color} />
           if (route.name === 'Favorites') return <FontAwesome name='heart' size={size} color={color} />
           if (route.name === 'Cart') return <FontAwesome name='shopping-cart' size={size} color={color} />
+          if (route.name === 'Orders') return <FontAwesome name='shopping-basket' size={size} color={color} />
         }
       })}>
         <Tab.Screen name="Home" component={HomeStack} />
@@ -75,6 +77,7 @@ export default function AppNavigator() {
             tabBarBadge: cartCount > 0 ? cartCount : undefined
           }}  
         />
+        <Tab.Screen name='Orders' component={OrdersScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

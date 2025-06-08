@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 
@@ -9,6 +10,7 @@ const statusList = [
 ];
 
 export default function OrderStatusScreen() {
+  const navigation = useNavigation()
   const [statusIndex, setStatusIndex] = useState(0);
 
   useEffect(() => {
@@ -18,6 +20,12 @@ export default function OrderStatusScreen() {
       }, 2500);
 
       return () => clearTimeout(timeout);
+    } else {
+      const timeout = setTimeout(() => {
+        navigation.goBack()
+
+        return () => clearTimeout(timeout)
+      }, 5000)
     }
   }, [statusIndex]);
 

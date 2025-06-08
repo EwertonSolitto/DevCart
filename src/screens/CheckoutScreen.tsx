@@ -2,11 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, Button, Alert } from 'react-native';
 import { useCartStore } from '../store/cartStore';
 import { useNavigation } from '@react-navigation/native';
+import { useOrderStore } from '../store/orderStore';
 
 export default function CheckoutScreen() {
   const navigation = useNavigation();
   const cart = useCartStore((state) => state.cart);
   const clearCart = useCartStore((state) => state.clearCart);
+  const addOrder = useOrderStore((state) => state.addOrder);
 
   const total = cart.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
@@ -14,6 +16,7 @@ export default function CheckoutScreen() {
   );
 
   const handleCheckout = () => {
+    addOrder(cart, total)
     Alert.alert('Pedido confirmado!', 'Obrigado pela sua compra!');
     clearCart();
     navigation.navigate('Status')
