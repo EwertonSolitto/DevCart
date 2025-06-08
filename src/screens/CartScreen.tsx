@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { useCartStore } from '../store/cartStore';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CartScreen() {
+  const navigation = useNavigation();
   const cart = useCartStore((state) => state.cart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const increaseQuantity = useCartStore((state) => state.increaseQuantity);
@@ -18,31 +20,36 @@ export default function CartScreen() {
   }
 
   return (
-    <FlatList
-      data={cart}
-      keyExtractor={(item) => item.product.id}
-      contentContainerStyle={styles.container}
-      renderItem={({ item }) => (
-        <View style={styles.item}>
-          <Text style={styles.name}>{item.product.name}</Text>
-          <Text style={styles.details}>
-            Quantidade: {item.quantity} | R$ {(item.product.price * item.quantity).toFixed(2)}
-          </Text>
-          <View style={styles.quantityRow}>
-            <TouchableOpacity onPress={() => decreaseQuantity(item.product.id)} style={styles.qtyButton}>
-              <Text style={styles.qtyText}>−</Text>
-            </TouchableOpacity>
-            <Text style={styles.qtyValue}>{item.quantity}</Text>
-            <TouchableOpacity onPress={() => increaseQuantity(item.product.id)} style={styles.qtyButton}>
-              <Text style={styles.qtyText}>+</Text>
+    <View>
+      <FlatList
+        data={cart}
+        keyExtractor={(item) => item.product.id}
+        contentContainerStyle={styles.container}
+        renderItem={({ item }) => (
+          <View style={styles.item}>
+            <Text style={styles.name}>{item.product.name}</Text>
+            <Text style={styles.details}>
+              Quantidade: {item.quantity} | R$ {(item.product.price * item.quantity).toFixed(2)}
+            </Text>
+            <View style={styles.quantityRow}>
+              <TouchableOpacity onPress={() => decreaseQuantity(item.product.id)} style={styles.qtyButton}>
+                <Text style={styles.qtyText}>−</Text>
+              </TouchableOpacity>
+              <Text style={styles.qtyValue}>{item.quantity}</Text>
+              <TouchableOpacity onPress={() => increaseQuantity(item.product.id)} style={styles.qtyButton}>
+                <Text style={styles.qtyText}>+</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={() => removeFromCart(item.product.id)}>
+              <Text style={styles.remove}>Remover</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => removeFromCart(item.product.id)}>
-            <Text style={styles.remove}>Remover</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    />
+        )}
+      />
+      <View style={{display: cart.length > 0 ? 'flex' : 'none'}}>
+        <Button title="Ir para o Checkout" onPress={() => navigation.navigate('Checkout')} />
+      </View>
+    </View>
   );
 }
 

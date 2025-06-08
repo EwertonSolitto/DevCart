@@ -10,6 +10,7 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import ProductScreen from '../screens/ProductScreen';
 import { useFavoriteStore } from '../store/favoriteStore';
 import { useCartStore } from '../store/cartStore';
+import CheckoutScreen from '../screens/CheckoutScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,15 @@ function FavoriteStack() {
     <Stack.Navigator>
       <Stack.Screen name="FavoriteMain" component={FavoritesScreen} options={{ title: 'Favorito' }} />
       <Stack.Screen name="Product" component={ProductScreen} options={{ title: 'Produto' }} />
+    </Stack.Navigator>
+  )
+}
+
+function CartStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Cart" component={CartScreen} options={{ title: 'Cart' }} />
+      <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'Checkout' }} />
     </Stack.Navigator>
   )
 }
@@ -58,7 +68,7 @@ export default function AppNavigator() {
         />
         <Tab.Screen
           name="Cart" 
-          component={CartScreen} 
+          component={CartStack} 
           options={{
             tabBarBadge: cartCount > 0 ? cartCount : undefined
           }}  
