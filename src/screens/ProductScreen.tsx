@@ -5,15 +5,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 import { useCartStore } from '../store/cartStore';
 import { useFavoriteStore } from '../store/favoriteStore'
-
-type Product = {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  rating: number;
-  description?: string;
-};
+import { Product } from '../models/Product';
 
 type RouteParams = {
   Product: {

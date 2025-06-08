@@ -1,18 +1,6 @@
 import { create } from 'zustand';
-
-type Product = {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  rating: number;
-  description?: string;
-};
-
-type CartItem = {
-  product: Product;
-  quantity: number;
-};
+import { Product } from '../models/Product';
+import { CartItem } from '../models/Cart';
 
 type CartStore = {
   cart: CartItem[];

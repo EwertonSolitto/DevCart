@@ -1,13 +1,5 @@
 import { create } from 'zustand';
-
-type Product = {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  rating: number;
-  description?: string;
-};
+import { Product } from '../models/Product';
 
 type FavoriteStore = {
   favorites: Product[];
