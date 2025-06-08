@@ -8,7 +8,6 @@ import CartScreen from '../screens/CartScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import ProductScreen from '../screens/ProductScreen';
 
-
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -21,12 +20,21 @@ function HomeStack() {
   );
 }
 
+function FavoriteStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="FavoriteMain" component={FavoritesScreen} options={{ title: 'Favorito' }} />
+      <Stack.Screen name="Product" component={ProductScreen} options={{ title: 'Produto' }} />
+    </Stack.Navigator>
+  )
+}
+
 export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Favorites" component={FavoritesScreen} />
+        <Tab.Screen name="Favorites" component={FavoriteStack} />
         <Tab.Screen name="Cart" component={CartScreen} />
       </Tab.Navigator>
     </NavigationContainer>
