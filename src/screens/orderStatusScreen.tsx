@@ -22,7 +22,9 @@ export default function OrderStatusScreen() {
       return () => clearTimeout(timeout);
     } else {
       const timeout = setTimeout(() => {
-        navigation.goBack()
+        if(navigation.canGoBack()) {
+          navigation.goBack()
+        }
 
         return () => clearTimeout(timeout)
       }, 5000)

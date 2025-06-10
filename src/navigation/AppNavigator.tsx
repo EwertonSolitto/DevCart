@@ -8,11 +8,12 @@ import HomeScreen from '../screens/HomeScreen';
 import CartScreen from '../screens/CartScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import ProductScreen from '../screens/ProductScreen';
-import { useFavoriteStore } from '../store/favoriteStore';
-import { useCartStore } from '../store/cartStore';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import OrderStatusScreen from '../screens/orderStatusScreen';
 import OrdersScreen from '../screens/OrdersScreen';
+
+import { useFavoriteStore } from '../store/favoriteStore';
+import { useCartStore } from '../store/cartStore';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,7 +39,7 @@ function FavoriteStack() {
 function CartStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Cart" component={CartScreen} options={{ title: 'Cart' }} />
+      <Stack.Screen name="CartScreen" component={CartScreen} options={{ title: 'Cart' }} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'Checkout' }} />
       <Stack.Screen name='Status' component={OrderStatusScreen} options={{title: 'Status'}} />
     </Stack.Navigator>
