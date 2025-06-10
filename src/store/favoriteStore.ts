@@ -1,4 +1,7 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { Product } from '../models/Product';
 
 type FavoriteStore = {
@@ -7,19 +10,27 @@ type FavoriteStore = {
   isFavorite: (productId: string) => boolean;
 };
 
-export const useFavoriteStore = create<FavoriteStore>((set, get) => ({
-  favorites: [],
-    toggleFavorite: (product: Product) => {
-    const { favorites } = get()
-    const existing = favorites.find((item) => item.id === product.id);
+export const useFavoriteStore = create<FavoriteStore>()(
+  persist(
+    (set, get) => ({
+      favorites: [],
+        toggleFavorite: (product: Product) => {
+        const { favorites } = get()
+        const existing = favorites.find((item) => item.id === product.id);
 
-    if (!existing) {
-      set({ favorites: [...favorites, product] });
-    } else {
-      set({ favorites: favorites.filter((item) => item.id !== product.id)})
+        if (!existing) {
+          set({ favorites: [...favorites, product] });
+        } else {
+          set({ favorites: favorites.filter((item) => item.id !== product.id)})
+        }
+      },
+      isFavorite: (productId) => {
+        return get().favorites.some((p) => p.id === productId);
+      },
+    }),
+    {
+      name: 'favorite-storage',
+      storage: createJSONStorage(() => AsyncStorage),
     }
-  },
-  isFavorite: (productId) => {
-    return get().favorites.some((p) => p.id === productId);
-  },
-}))
+  )
+)

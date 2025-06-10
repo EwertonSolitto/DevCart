@@ -1,4 +1,7 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { Product } from '../models/Product';
 import { CartItem } from '../models/Cart';
 
@@ -11,48 +14,56 @@ type CartStore = {
   decreaseQuantity: (productId: string) => void;
 };
 
-export const useCartStore = create<CartStore>((set, get) => ({
-  cart: [],
-  addToCart: (product) => {
-    const { cart } = get();
-    const existing = cart.find((item) => item.product.id === product.id);
+export const useCartStore = create<CartStore>()(
+  persist(
+    (set, get) => ({
+      cart: [],
+      addToCart: (product) => {
+        const { cart } = get();
+        const existing = cart.find((item) => item.product.id === product.id);
 
-    if (existing) {
+        if (existing) {
+          set({
+            cart: cart.map((item) =>
+              item.product.id === product.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            ),
+          });
+        } else {
+          set({ cart: [...cart, { product, quantity: 1 }] });
+        }
+      },
+      removeFromCart: (productId) => {
+        set({
+          cart: get().cart.filter((item) => item.product.id !== productId),
+        });
+      },
+      clearCart: () => set({ cart: [] }),
+      increaseQuantity: (productId: string) => {
       set({
-        cart: cart.map((item) =>
-          item.product.id === product.id
+        cart: get().cart.map((item) =>
+          item.product.id === productId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         ),
       });
-    } else {
-      set({ cart: [...cart, { product, quantity: 1 }] });
+      },
+      decreaseQuantity: (productId: string) => {
+        set({
+          cart: get().cart
+            .map((item) =>
+              item.product.id === productId
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            )
+            .filter((item) => item.quantity > 0),
+        });
+      },
+    }),
+    {
+      name: "cart-storage",
+      storage: createJSONStorage(() => AsyncStorage),
     }
-  },
-  removeFromCart: (productId) => {
-    set({
-      cart: get().cart.filter((item) => item.product.id !== productId),
-    });
-  },
-  clearCart: () => set({ cart: [] }),
-  increaseQuantity: (productId: string) => {
-  set({
-    cart: get().cart.map((item) =>
-      item.product.id === productId
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-    ),
-  });
-  },
-  decreaseQuantity: (productId: string) => {
-    set({
-      cart: get().cart
-        .map((item) =>
-          item.product.id === productId
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter((item) => item.quantity > 0),
-    });
-  },
-}));
+  )
+);
