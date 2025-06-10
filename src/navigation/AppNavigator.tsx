@@ -11,6 +11,7 @@ import ProductScreen from '../screens/ProductScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import OrderStatusScreen from '../screens/orderStatusScreen';
 import OrdersScreen from '../screens/OrdersScreen';
+import CategoryScreen from '../screens/CategoriesScreen';
 
 import { useFavoriteStore } from '../store/favoriteStore';
 import { useCartStore } from '../store/cartStore';
@@ -23,6 +24,7 @@ function HomeStack() {
     <Stack.Navigator>
       <Stack.Screen name="HomeMain" component={HomeScreen} options={{ title: 'Início' }} />
       <Stack.Screen name="Product" component={ProductScreen} options={{ title: 'Produto' }} />
+      <Stack.Screen name="Category" component={CategoryScreen} />
     </Stack.Navigator>
   );
 }

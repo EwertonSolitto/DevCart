@@ -5,7 +5,7 @@ export const products = [
     image: 'https://via.placeholder.com/150',
     price: 499.90,
     rating: 4.8,
-    category: 'Setup Dev',
+    category: 'Teclado',
     description: 'Teclado compacto ideal para desenvolvedores, com switch Gateron Brown e iluminação RGB.',
   },
   {
@@ -14,6 +14,6 @@ export const products = [
     image: 'https://via.placeholder.com/150',
     price: 649.90,
     rating: 4.9,
-    category: 'Setup Dev',
+    category: 'Mouse',
   },
 ];
