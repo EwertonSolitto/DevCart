@@ -15,6 +15,7 @@ import CategoryScreen from '../screens/CategoriesScreen';
 
 import { useFavoriteStore } from '../store/favoriteStore';
 import { useCartStore } from '../store/cartStore';
+import SearchScreen from '../screens/SearchScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ function HomeStack() {
       <Stack.Screen name="HomeMain" component={HomeScreen} options={{ title: 'Início' }} />
       <Stack.Screen name="Product" component={ProductScreen} options={{ title: 'Produto' }} />
       <Stack.Screen name="Category" component={CategoryScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
     </Stack.Navigator>
   );
 }
