@@ -1,14 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-interface Product {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  rating: number;
-}
+import { Product } from '../models/Product';
 
 export default function ProductCard({ product }: { product: Product }) {
   const navigation = useNavigation();
