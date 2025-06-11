@@ -1,28 +1,30 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
-import { Product } from '../models/Product'; 
-import { products } from '../data/products'; 
-import ProductCard from '../components/ProductCard';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-type CategoryRouteProp = RouteProp<{ params: { category: string } }, 'params'>;
+import { categories } from '../data/categories';
 
-export default function CategoryScreen() {
-  const route = useRoute<CategoryRouteProp>();
-  const { category } = route.params;
-
-  const filteredProducts = products.filter(
-    (item) => item.category.toLowerCase() === category.toLowerCase()
-  );
+export default function CategoriesScreen() {
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{category}</Text>
+      <Text style={styles.title}>Categorias</Text>
 
       <FlatList
-        data={filteredProducts}
+        data={categories}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCard product={item} />}
+        numColumns={2}
+        columnWrapperStyle={styles.row}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('Category', { category: item.name })}
+          >
+            <Text style={styles.emoji}>{item.emoji}</Text>
+            <Text style={styles.name}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
       />
     </View>
   );
@@ -30,5 +32,17 @@ export default function CategoryScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 16 },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
+  row: { justifyContent: 'space-between' },
+  card: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 16,
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 16,
+    marginHorizontal: 8,
+  },
+  emoji: { fontSize: 32, marginBottom: 8 },
+  name: { fontSize: 16, fontWeight: '600' },
 });

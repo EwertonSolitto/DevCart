@@ -3,6 +3,7 @@ import { View, FlatList, StyleSheet, Text, TouchableOpacity, Button } from 'reac
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useNavigation } from '@react-navigation/native';
+import { categories } from '../data/categories';
 
 export default function HomeScreen() {
   const navigation = useNavigation()
@@ -11,9 +12,18 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Button title="🔍 Buscar" onPress={() => navigation.navigate('Search')} />
       <Text style={styles.title}>Categorias</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Category', { category: 'Teclado' })}>
-          <Text>📱 Teclado</Text>
-        </TouchableOpacity>
+      <FlatList 
+        data={categories}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate('Category', { category: item.name })}>
+            <Text>{item.emoji} {item.name}</Text>
+          </TouchableOpacity>
+        )}
+      />
+      <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
+        <Text>🗂️ Ver todas as categorias</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>DevCart - Destaques</Text>
       <FlatList
         data={products}

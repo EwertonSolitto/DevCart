@@ -9,13 +9,14 @@ import CartScreen from '../screens/CartScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import ProductScreen from '../screens/ProductScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
-import OrderStatusScreen from '../screens/orderStatusScreen';
+import OrderStatusScreen from '../screens/OrderStatusScreen';
 import OrdersScreen from '../screens/OrdersScreen';
-import CategoryScreen from '../screens/CategoriesScreen';
+import CategoryScreen from '../screens/CategoryScreen';
 
 import { useFavoriteStore } from '../store/favoriteStore';
 import { useCartStore } from '../store/cartStore';
 import SearchScreen from '../screens/SearchScreen';
+import CategoriesScreen from '../screens/CategoriesScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ function HomeStack() {
     <Stack.Navigator>
       <Stack.Screen name="HomeMain" component={HomeScreen} options={{ title: 'Início' }} />
       <Stack.Screen name="Product" component={ProductScreen} options={{ title: 'Produto' }} />
+      <Stack.Screen name="Categories" component={CategoriesScreen} />
       <Stack.Screen name="Category" component={CategoryScreen} />
       <Stack.Screen name="Search" component={SearchScreen} />
     </Stack.Navigator>
