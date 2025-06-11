@@ -17,13 +17,22 @@ import { useFavoriteStore } from '../store/favoriteStore';
 import { useCartStore } from '../store/cartStore';
 import SearchScreen from '../screens/SearchScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
+import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+import { useAuth } from '../contexts/AuthContext';
+import { SplashScreen } from '../screens/SplashScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+const defaultOptions = {
+  headerShown: false
+}
+
 function HomeStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={defaultOptions}>
       <Stack.Screen name="HomeMain" component={HomeScreen} options={{ title: 'Início' }} />
       <Stack.Screen name="Product" component={ProductScreen} options={{ title: 'Produto' }} />
       <Stack.Screen name="Categories" component={CategoriesScreen} />
@@ -35,7 +44,7 @@ function HomeStack() {
 
 function FavoriteStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={defaultOptions}>
       <Stack.Screen name="FavoriteMain" component={FavoritesScreen} options={{ title: 'Favorito' }} />
       <Stack.Screen name="Product" component={ProductScreen} options={{ title: 'Produto' }} />
     </Stack.Navigator>
@@ -44,7 +53,7 @@ function FavoriteStack() {
 
 function CartStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={defaultOptions}>
       <Stack.Screen name="CartScreen" component={CartScreen} options={{ title: 'Cart' }} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'Checkout' }} />
       <Stack.Screen name='Status' component={OrderStatusScreen} options={{title: 'Status'}} />
@@ -52,40 +61,69 @@ function CartStack() {
   )
 }
 
-export default function AppNavigator() {
+function LoginStack() {
+  return (
+    <Stack.Navigator screenOptions={defaultOptions}>
+      <Stack.Screen name='Login' component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
+  )
+}
+
+function TabNavigation() {
   const favoriteCount = useFavoriteStore((state) => state.favorites.length)
   const cartCount = useCartStore((state) => (
     state.cart.reduce((total, item) => total + item.quantity, 0)
   ))
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarIcon: ({ color, size }) => {
-          if (route.name === 'Home') return <FontAwesome name='home' size={size} color={color} />
-          if (route.name === 'Favorites') return <FontAwesome name='heart' size={size} color={color} />
-          if (route.name === 'Cart') return <FontAwesome name='shopping-cart' size={size} color={color} />
-          if (route.name === 'Orders') return <FontAwesome name='shopping-basket' size={size} color={color} />
-        }
-      })}>
-        <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen 
-          name="Favorites" 
-          component={FavoriteStack} 
-          options={{
-            tabBarBadge: favoriteCount > 0 ? favoriteCount : undefined
-          }}
-        />
-        <Tab.Screen
-          name="Cart" 
-          component={CartStack} 
-          options={{
-            tabBarBadge: cartCount > 0 ? cartCount : undefined
-          }}  
-        />
-        <Tab.Screen name='Orders' component={OrdersScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator screenOptions={({ route }) => ({
+      ...defaultOptions,
+      tabBarIcon: ({ color, size }) => {
+        if (route.name === 'Home') return <FontAwesome name='home' size={size} color={color} />
+        if (route.name === 'Favorites') return <FontAwesome name='heart' size={size} color={color} />
+        if (route.name === 'Cart') return <FontAwesome name='shopping-cart' size={size} color={color} />
+        if (route.name === 'Orders') return <FontAwesome name='shopping-basket' size={size} color={color} />
+        if (route.name === 'Profile') return <FontAwesome name='user' size={size} color={color} />
+      }
+    })}>
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen 
+        name="Favorites" 
+        component={FavoriteStack} 
+        options={{
+          tabBarBadge: favoriteCount > 0 ? favoriteCount : undefined
+        }}
+      />
+      <Tab.Screen
+        name="Cart" 
+        component={CartStack} 
+        options={{
+          tabBarBadge: cartCount > 0 ? cartCount : undefined
+        }}  
+      />
+      <Tab.Screen name='Orders' component={OrdersScreen} />
+      <Tab.Screen name='Profile' component={ProfileScreen} />
+    </Tab.Navigator>
+  )
+}
+
+export default function AppNavigator() {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) return <SplashScreen />;
+
+  return (
+    <Stack.Navigator screenOptions={defaultOptions}>
+      {
+        user ? (
+          <Stack.Screen name='Main' component={TabNavigation} />
+        ) : (
+          <Stack.Screen name='LoginArea' component={LoginStack}/>
+        )
+      }
+      
+      
+    </Stack.Navigator>
   );
 }
