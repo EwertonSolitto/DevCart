@@ -11,18 +11,11 @@ export default function LoginScreen() {
   const navigation = useNavigation();
   const { login } = useAuth();
 
-  const handleLogin = () => {
-    if (!email || !password) {
-      Alert.alert('Erro', 'Preencha todos os campos');
-      return;
-    }
-
-    // Simulação de login
-    if (email === 'dev@cart.com' && password === '123456') {
-      Alert.alert('Login realizado', 'Seja bem-vindo!');
-      login({ name: 'Dev User', email });
-    } else {
-      Alert.alert('Erro', 'Credenciais inválidas');
+  const handleLogin = async () => {
+    try {
+      await login(email, password);
+    } catch (err) {
+      Alert.alert('Erro no login', err.message);
     }
   };
 
