@@ -5,11 +5,9 @@ import { useAuth } from '../contexts/AuthContext';
 export default function ProfileScreen() {
   const { user, logout } = useAuth();
 
-  console.log(user?.displayName)
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Olá, {user?.displayName}</Text>
+      <Text style={styles.title}>Olá, {user?.name}</Text>
 
       <TouchableOpacity style={styles.button} onPress={logout}>
         <Text style={styles.buttonText}>Sair</Text>

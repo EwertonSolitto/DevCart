@@ -10,16 +10,14 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
-  const { login } = useAuth();
+  const { register } = useAuth();
 
-  const handleRegister = () => {
-    if (!name || !email || !password) {
-      Alert.alert('Erro', 'Preencha todos os campos');
-      return;
+  const handleRegister = async () => {
+    try {
+      await register(email, password, name);
+    } catch (err) {
+      Alert.alert('Erro ao cadastrar', err.message);
     }
-
-    Alert.alert('Cadastro realizado', 'Bem vindo ao DevCart!');
-    login({ name, email });
   };
 
   return (
