@@ -70,6 +70,15 @@ function LoginStack() {
   )
 }
 
+function ProfileStack() {
+  return (
+    <Stack.Navigator screenOptions={defaultOptions}>
+      <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
+      <Stack.Screen name='Orders' component={OrdersScreen} />
+    </Stack.Navigator>
+  )
+}
+
 function TabNavigation() {
   const favoriteCount = useFavoriteStore((state) => state.favorites.length)
   const cartCount = useCartStore((state) => (
@@ -83,7 +92,6 @@ function TabNavigation() {
         if (route.name === 'Home') return <FontAwesome name='home' size={size} color={color} />
         if (route.name === 'Favorites') return <FontAwesome name='heart' size={size} color={color} />
         if (route.name === 'Cart') return <FontAwesome name='shopping-cart' size={size} color={color} />
-        if (route.name === 'Orders') return <FontAwesome name='shopping-basket' size={size} color={color} />
         if (route.name === 'Profile') return <FontAwesome name='user' size={size} color={color} />
       }
     })}>
@@ -102,8 +110,7 @@ function TabNavigation() {
           tabBarBadge: cartCount > 0 ? cartCount : undefined
         }}  
       />
-      <Tab.Screen name='Orders' component={OrdersScreen} />
-      <Tab.Screen name='Profile' component={ProfileScreen} />
+      <Tab.Screen name='Profile' component={ProfileStack} />
     </Tab.Navigator>
   )
 }
