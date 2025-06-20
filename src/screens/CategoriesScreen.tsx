@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import { categories } from '../data/categories';
 import { CategoryCard } from '../components/CategoryCard';

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { useOrderStore } from '../store/orderStore';
+import { getOrderHistory } from '../store/orderStore';
+import { Order } from '../models/Order';
 
 export default function OrdersScreen() {
-  const orders = useOrderStore((state) => state.orders);
+  const [orders, useOrders] = useState<Order[]>([])
+
+  useEffect(() => {
+    (async () => {
+      const history = await getOrderHistory()
+
+      useOrders(history)
+    })()
+  }, [])
 
   return (
     <View style={styles.container}>
