@@ -3,11 +3,6 @@ import { onAuthStateChanged, signInWithEmailAndPassword, signOut, User, createUs
 import { auth, db } from '../services/firebaseConfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-type TUser = {
-  email: string
-  name: string
-}
-
 type AuthContextType = {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
@@ -21,7 +16,6 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
