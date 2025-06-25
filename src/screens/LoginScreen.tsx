@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts/AuthContext';
+import { colors } from '../theme/themes';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -52,23 +53,23 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24, justifyContent: 'center' },
-  title: { fontSize: 32, fontWeight: 'bold', marginBottom: 32, textAlign: 'center' },
+  container: { flex: 1, padding: 24, justifyContent: 'center', backgroundColor: colors.background},
+  title: { fontSize: 32, fontWeight: 'bold', marginBottom: 32, textAlign: 'center', color: colors.secondary},
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     borderRadius: 12,
     padding: 12,
     fontSize: 16,
     marginBottom: 16,
   },
   button: {
-    backgroundColor: '#0a84ff',
+    backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
     marginBottom: 16,
   },
-  buttonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  link: { textAlign: 'center', color: '#0a84ff', fontSize: 14 },
+  buttonText: { color: colors.card, fontSize: 16, fontWeight: '600' },
+  link: { textAlign: 'center', color: colors.primary, fontSize: 14 },
 });
