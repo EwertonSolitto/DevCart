@@ -22,6 +22,8 @@ import RegisterScreen from '../screens/RegisterScreen';
 import { useAuth } from '../contexts/AuthContext';
 import { SplashScreen } from '../screens/SplashScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import { colors } from '../theme/themes';
+import { Pressable } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -89,11 +91,30 @@ function TabNavigation() {
     <Tab.Navigator screenOptions={({ route }) => ({
       ...defaultOptions,
       tabBarIcon: ({ color, size }) => {
-        if (route.name === 'Home') return <FontAwesome name='home' size={size} color={color} />
-        if (route.name === 'Favorites') return <FontAwesome name='heart' size={size} color={color} />
-        if (route.name === 'Cart') return <FontAwesome name='shopping-cart' size={size} color={color} />
-        if (route.name === 'Profile') return <FontAwesome name='user' size={size} color={color} />
-      }
+        if (route.name === 'Home') return <FontAwesome name='home' size={32} color={color} />
+        if (route.name === 'Favorites') return <FontAwesome name='heart' size={32} color={color} />
+        if (route.name === 'Cart') return <FontAwesome name='shopping-cart' size={32} color={color} />
+        if (route.name === 'Profile') return <FontAwesome name='user' size={32} color={color} />
+      },
+      tabBarButton: (props) => <Pressable {...props} android_ripple={{ color: colors.border }} />,
+      tabBarShowLabel: false,
+      tabBarActiveTintColor: colors.primary,
+      tabBarInactiveTintColor: colors.border,
+      tabBarStyle: {
+        height: 96,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: colors.card
+      },
+      tabBarIconStyle: {
+        marginBlock: 'auto',
+        width: 32,
+        height: 32
+      },
+      tabBarBadgeStyle: {
+        backgroundColor: colors.error
+      },
+      animation: 'shift',
     })}>
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen 
