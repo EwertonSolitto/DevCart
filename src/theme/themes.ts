@@ -1,8 +1,9 @@
 export const colors = {
-  primary: '#0A84FF',
-  secondary: '#1C1C1E',
-  background: '#F2F2F7',
-  card: '#FFFFFF',
-  border: '#93939F',
-  error: '#FF3B30',
+  primary: '#89B4FA',
+  secondary: '#D9E0EE',
+  background: '#1E1E2E',
+  card: '#2A2A3C',
+  border: '#A6ADC8',
+  placeholder: '#686C82',
+  error: '#FB5048',
 };
