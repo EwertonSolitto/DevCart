@@ -5,10 +5,12 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts/AuthContext';
 import { colors } from '../theme/themes';
+import { LoginInputError } from '../models/LoginInputError';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorType, setErrorType] = useState<LoginInputError | null>(null);
   const navigation = useNavigation();
   const { login } = useAuth();
 
@@ -16,7 +18,15 @@ export default function LoginScreen() {
     try {
       await login(email, password);
     } catch (err) {
-      Alert.alert('Erro no login', err.message);
+      switch(err.message) {
+        case 'Firebase: Error (auth/invalid-email).':
+          setErrorType('email')  
+        break
+        case 'Firebase: Error (auth/missing-password).':
+        case 'Firebase: Error (auth/invalid-credential)':
+          setErrorType('password')
+        break
+      }
     }
   };
 
@@ -28,18 +38,27 @@ export default function LoginScreen() {
         placeholder="E-mail"
         keyboardType="email-address"
         autoCapitalize="none"
-        style={styles.input}
+        style={[styles.input, errorType === 'email' && styles.error]}
         value={email}
         onChangeText={setEmail}
+        placeholderTextColor={errorType === 'email' ? colors.error : colors.placeholder}
       />
 
       <TextInput
         placeholder="Senha"
         secureTextEntry
-        style={styles.input}
+        style={[styles.input, errorType === 'password' && styles.error]}
         value={password}
         onChangeText={setPassword}
+        placeholderTextColor={errorType === 'password' ? colors.error : colors.placeholder}
       />
+
+      {
+        errorType &&
+        <Text style={styles.errorText}>
+          {errorType === 'email' ? 'E-mail inválido' : 'Senha ou e-mail incorretos'}
+        </Text>
+      }
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
@@ -62,6 +81,7 @@ const styles = StyleSheet.create({
     padding: 12,
     fontSize: 16,
     marginBottom: 16,
+    color: colors.secondary
   },
   button: {
     backgroundColor: colors.primary,
@@ -72,4 +92,11 @@ const styles = StyleSheet.create({
   },
   buttonText: { color: colors.card, fontSize: 16, fontWeight: '600' },
   link: { textAlign: 'center', color: colors.primary, fontSize: 14 },
+  error: { borderColor: colors.error },
+  errorText: {
+    position: 'relative',
+    color: colors.error,
+    textAlign: 'center',
+    bottom: 8,
+  }
 });

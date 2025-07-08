@@ -1,0 +1,1 @@
+export type LoginInputError = 'email' | 'password' | 'name'

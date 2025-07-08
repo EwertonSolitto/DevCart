@@ -41,6 +41,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const register = async (email: string, password: string, name: string) => {
+    if(!name) {
+      throw new Error('Error: (auth/invalid-name)')
+    }
+
     const cred = await createUserWithEmailAndPassword(auth, email, password);
     const uid = cred.user.uid;
 
