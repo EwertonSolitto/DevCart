@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { useCartStore } from '../store/cartStore';
 import { useNavigation } from '@react-navigation/native';
+import { colors } from '../theme/themes';
 
 export default function CartScreen() {
   const navigation = useNavigation();
@@ -20,11 +21,11 @@ export default function CartScreen() {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={cart}
         keyExtractor={(item) => item.product.id}
-        contentContainerStyle={styles.container}
+        contentContainerStyle={styles.containerList}
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Text style={styles.name}>{item.product.name}</Text>
@@ -47,38 +48,41 @@ export default function CartScreen() {
         )}
       />
       <View style={{display: cart.length > 0 ? 'flex' : 'none'}}>
-        <Button title="Ir para o Checkout" onPress={() => navigation.navigate('Checkout')} />
+        <TouchableOpacity onPress={() => navigation.navigate('Checkout')} style={styles.button} >
+          <Text style={styles.buttonText}>Ir para o Checkout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 16 },
-  text: { fontSize: 18, textAlign: 'center', marginTop: 40 },
+  container: { flex: 1, padding: 16, backgroundColor: colors.background, justifyContent: 'center' },
+  containerList: { marginTop: 48 },
+  text: { fontSize: 18, textAlign: 'center', marginTop: 40, color: colors.secondary },
   item: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.primary,
     padding: 12,
     marginBottom: 12,
     borderRadius: 8,
     elevation: 1,
   },
-  name: { fontWeight: 'bold', fontSize: 16 },
-  details: { fontSize: 14, color: '#444' },
+  name: { fontWeight: 'bold', fontSize: 16, color: colors.card },
+  details: { fontSize: 14, color: colors.card },
   remove: {
-    color: '#FF4444',
+    color: colors.error,
     marginTop: 8,
     fontSize: 14,
     fontWeight: '500',
   },
   quantityRow: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  marginTop: 12,
-  gap: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+    gap: 12,
   },
   qtyButton: {
-    backgroundColor: '#eee',
+    backgroundColor: colors.secondary,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
@@ -86,9 +90,18 @@ const styles = StyleSheet.create({
   qtyText: {
     fontSize: 18,
     fontWeight: '600',
+    color: colors.card
   },
   qtyValue: {
     fontSize: 16,
     fontWeight: '500',
+    color: colors.card
   },
+  button: {
+    backgroundColor: colors.primary,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  buttonText: { fontSize: 14, color: colors.card, fontWeight: 600 },
 });
