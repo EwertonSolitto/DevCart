@@ -22,6 +22,7 @@ export default function CartScreen() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Carrinho</Text>
       <FlatList
         data={cart}
         keyExtractor={(item) => item.product.id}
@@ -58,8 +59,9 @@ export default function CartScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, backgroundColor: colors.background, justifyContent: 'center' },
-  containerList: { marginTop: 48 },
-  text: { fontSize: 18, textAlign: 'center', marginTop: 40, color: colors.secondary },
+  containerList: { marginTop: 12 },
+  text: { fontSize: 18, textAlign: 'center', marginTop: 40, color: colors.secondary, },
+  title: { fontSize: 28, color: colors.secondary, marginTop: 32 },
   item: {
     backgroundColor: colors.primary,
     padding: 12,
