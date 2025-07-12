@@ -5,6 +5,8 @@ import ProductCard from '../components/ProductCard';
 import { useNavigation } from '@react-navigation/native';
 import { categories } from '../data/categories';
 import { CategoryCard } from '../components/CategoryCard';
+import { colors } from '../theme/themes';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function HomeScreen() {
   const navigation = useNavigation()
@@ -12,7 +14,15 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Button title="🔍 Buscar" onPress={() => navigation.navigate('Search')} />
+        <View style={styles.titleContainer}>
+          <Text style={[styles.title, styles.mainTitle]}>DevCart</Text>
+          <TouchableOpacity 
+            style={[styles.button, styles.searchButton]} 
+            onPress={() => navigation.navigate('Search')} 
+          >
+            <FontAwesome size={24} name='search' color={colors.secondary} />
+          </TouchableOpacity>
+        </View>
         <Text style={styles.title}>Categorias</Text>
         <FlatList 
           data={categories.slice(0, 4)}
@@ -24,10 +34,10 @@ export default function HomeScreen() {
         />
         <View style={styles.categoriesButtonView}>
           <TouchableOpacity 
-            style={styles.categoriesButton} 
+            style={styles.button} 
             onPress={() => navigation.navigate('Categories')}
           >
-            <Text style={styles.categoriesButtonText}>Ver todas as categorias</Text>
+            <Text style={styles.buttonText}>Ver todas as categorias</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.title}>DevCart - Destaques</Text>
@@ -44,21 +54,35 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingTop: 50, paddingHorizontal: 16 },
+  container: { flex: 1, paddingTop: 50, paddingHorizontal: 16, backgroundColor: colors.background },
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  mainTitle: {
+    fontSize: 28
+  },
   title: { 
     fontSize: 22, 
     fontWeight: 'bold', 
     marginBottom: 16, 
-    marginTop: 8
+    marginTop: 8,
+    color: colors.secondary
+  },
+  searchButton: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: colors.border
   },
   list: { paddingBottom: 16 },
   categoriesButtonView: { alignItems: 'center' },
-  categoriesButton: { 
-    backgroundColor: "#1E90FF",
-    paddingBlock: 2,
-    paddingInline: 4,
-    borderRadius: 2
+  button: {
+    backgroundColor: colors.primary,
+    padding: 8,
+    borderRadius: 6,
+    alignItems: 'center',
   },
-  categoriesButtonText: { fontSize: 14, color: '#F0F0F0' },
+  buttonText: { fontSize: 14, color: colors.card },
   row: { justifyContent: 'space-between' },
 });
