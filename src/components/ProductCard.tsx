@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Product } from '../models/Product';
+import { colors } from '../theme/themes';
 
 export default function ProductCard({ product }: { product: Product }) {
   const navigation = useNavigation();
@@ -24,13 +25,13 @@ export default function ProductCard({ product }: { product: Product }) {
 const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: colors.primary,
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
+    shadowColor: colors.secondary,
+    shadowOpacity: 0.5,
     shadowRadius: 5,
   },
   image: {
@@ -46,13 +47,14 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: colors.card
   },
   price: {
     fontSize: 14,
-    color: '#1E90FF',
+    color: colors.secondary,
   },
   rating: {
     fontSize: 12,
-    color: '#888',
+    color: colors.yellow,
   },
 });

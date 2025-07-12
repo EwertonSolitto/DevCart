@@ -6,4 +6,5 @@ export const colors = {
   border: '#A6ADC8',
   placeholder: '#686C82',
   error: '#FB5048',
+  yellow: '#FFE11F'
 };

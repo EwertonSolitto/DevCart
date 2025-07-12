@@ -79,10 +79,10 @@ const styles = StyleSheet.create({
   categoriesButtonView: { alignItems: 'center' },
   button: {
     backgroundColor: colors.primary,
-    padding: 8,
-    borderRadius: 6,
+    padding: 12,
+    borderRadius: 8,
     alignItems: 'center',
   },
-  buttonText: { fontSize: 14, color: colors.card },
+  buttonText: { fontSize: 14, color: colors.card, fontWeight: 600 },
   row: { justifyContent: 'space-between' },
 });

@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Category } from '../models/Category';
+import { colors } from '../theme/themes';
 
 export function CategoryCard({ category }: { category: Category}) {
   const navigation = useNavigation()
@@ -20,7 +21,7 @@ export function CategoryCard({ category }: { category: Category}) {
 const styles = StyleSheet.create({
 card: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.primary,
     borderRadius: 16,
     padding: 20,
     alignItems: 'center',
@@ -28,5 +29,5 @@ card: {
     marginHorizontal: 8,
   },
   emoji: { fontSize: 32, marginBottom: 8 },
-  name: { fontSize: 16, fontWeight: '600' },
+  name: { fontSize: 16, fontWeight: '600', color: colors.card },
 })
