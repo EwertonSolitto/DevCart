@@ -4,6 +4,7 @@ import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { Product } from '../models/Product';
 import { addToSearchHistory, clearSearchHistory, getSearchHistory } from '../utils/searchHistory';
+import { colors } from '../theme/themes';
 
 export default function SearchScreen() {
   const [query, setQuery] = useState('');
@@ -51,6 +52,7 @@ export default function SearchScreen() {
         value={query}
         onChangeText={setQuery}
         style={styles.input}
+        placeholderTextColor={colors.placeholder}
       />
 
       {query.length > 0 && filtered.length === 0 && (
@@ -87,29 +89,31 @@ export default function SearchScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
+  container: { flex: 1, padding: 16, backgroundColor: colors.background, paddingTop: 48 },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     borderRadius: 12,
     padding: 12,
     marginBottom: 16,
     fontSize: 16,
+    color: colors.secondary
   },
-  empty: { textAlign: 'center', marginTop: 32, fontSize: 16, color: '#999' },
-    historyContainer: { marginBottom: 16 },
+  empty: { textAlign: 'center', marginTop: 32, fontSize: 16, color: colors.secondary  },
+  historyContainer: { marginBottom: 16 },
   historyHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
   },
-  historyTitle: { fontSize: 16, fontWeight: 'bold' },
-  clearBtn: { fontSize: 14, color: 'red' },
+  historyTitle: { fontSize: 16, fontWeight: 'bold', color: colors.secondary },
+  clearBtn: { fontSize: 14, color: colors.error },
   historyItem: {
     paddingVertical: 8,
     fontSize: 15,
     borderBottomWidth: 0.5,
-    borderColor: '#ccc',
+    borderColor: colors.border,
+    color: colors.secondary
   }
 });
