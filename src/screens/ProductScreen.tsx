@@ -7,6 +7,7 @@ import { useCartStore } from '../store/cartStore';
 import { useFavoriteStore } from '../store/favoriteStore'
 import { Product } from '../models/Product';
 import { colors } from '../theme/themes';
+import { LinkButton } from '../components/Button';
 
 type RouteParams = {
   Product: {
@@ -44,9 +45,7 @@ export default function ProductScreen() {
           {product.description || 'Este produto não possui descrição.'}
         </Text>
         <View style={{ marginTop: 24 }}>
-          <TouchableOpacity onPress={() => addToCart(product)} style={styles.button} >
-            <Text style={styles.buttonText} >Adicionar ao Carrinho</Text>
-          </TouchableOpacity>
+          <LinkButton text={'Adicionar ao Carrinho'} func={() => addToCart(product)} />
         </View>
       </View>
     </ScrollView>
@@ -72,6 +71,4 @@ const styles = StyleSheet.create({
     width: "100%",
     zIndex: 1,
   },
-  button: { backgroundColor: colors.primary, alignItems: 'center', paddingBlock: 10, borderRadius: 4 },
-  buttonText: { fontSize: 16, fontWeight: 600, color: colors.card },
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Text, TouchableOpacity, Button, ScrollView } from 'react-native';
+import { View, FlatList, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { categories } from '../data/categories';
 import { CategoryCard } from '../components/CategoryCard';
 import { colors } from '../theme/themes';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { LinkButton } from '../components/Button';
 
 export default function HomeScreen() {
   const navigation = useNavigation()
@@ -33,12 +34,7 @@ export default function HomeScreen() {
           scrollEnabled={false}
         />
         <View style={styles.categoriesButtonView}>
-          <TouchableOpacity 
-            style={styles.button} 
-            onPress={() => navigation.navigate('Categories')}
-          >
-            <Text style={styles.buttonText}>Ver todas as categorias</Text>
-          </TouchableOpacity>
+          <LinkButton text='Ver todas as categorias' func={() => navigation.navigate('Categories')} />
         </View>
         <Text style={styles.title}>DevCart - Destaques</Text>
         <FlatList
@@ -79,10 +75,9 @@ const styles = StyleSheet.create({
   categoriesButtonView: { alignItems: 'center' },
   button: {
     backgroundColor: colors.primary,
-    padding: 12,
+    padding: 8,
     borderRadius: 8,
     alignItems: 'center',
   },
-  buttonText: { fontSize: 14, color: colors.card, fontWeight: 600 },
   row: { justifyContent: 'space-between' },
 });
