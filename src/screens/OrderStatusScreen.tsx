@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { colors } from '../theme/themes';
 
 const statusList = [
   { label: 'Pedido confirmado', emoji: '🧾' },
@@ -53,7 +54,7 @@ export default function OrderStatusScreen() {
       ))}
 
       {statusIndex < statusList.length - 1 ? (
-        <ActivityIndicator style={{ marginTop: 32 }} size="large" color="#000" />
+        <ActivityIndicator style={{ marginTop: 32 }} size="large" color={colors.secondary} />
       ) : (
         <Text style={styles.done}>✅ Pedido finalizado com sucesso!</Text>
       )}
@@ -62,8 +63,8 @@ export default function OrderStatusScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24, justifyContent: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 32, textAlign: 'center' },
+  container: { flex: 1, padding: 24, justifyContent: 'center', backgroundColor: colors.background },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 32, textAlign: 'center', color: colors.secondary },
   statusItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -77,6 +78,6 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   emoji: { fontSize: 28, marginRight: 12 },
-  statusText: { fontSize: 18 },
-  done: { fontSize: 18, color: 'green', marginTop: 24, textAlign: 'center' },
+  statusText: { fontSize: 18, color: colors.secondary },
+  done: { fontSize: 18, color: colors.primary, marginTop: 24, textAlign: 'center' },
 });

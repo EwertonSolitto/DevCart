@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, FlatList, Button, Alert } from 'react-native';
 import { useCartStore } from '../store/cartStore';
 import { useNavigation } from '@react-navigation/native';
 import { saveOrderToFirestore } from '../store/orderStore';
+import { LinkButton } from '../components/Button';
+import { colors } from '../theme/themes';
 
 export default function CheckoutScreen() {
   const navigation = useNavigation();
@@ -48,19 +50,19 @@ export default function CheckoutScreen() {
 
       <View style={styles.footer}>
         <Text style={styles.total}>Total: R$ {total.toFixed(2)}</Text>
-        <Button title="Finalizar Pedido" onPress={handleCheckout} disabled={cart.length === 0} />
+        <LinkButton text="Finalizar Pedido" func={handleCheckout} disabled={cart.length === 0} />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  title: { fontSize: 20, fontWeight: 'bold', marginBottom: 16 },
+  container: { flex: 1, padding: 16, paddingTop: 48, backgroundColor: colors.background },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, color: colors.secondary },
   item: { marginBottom: 12 },
-  name: { fontSize: 16, fontWeight: '600' },
-  details: { fontSize: 14, color: '#555' },
-  empty: { textAlign: 'center', marginTop: 40, fontSize: 16 },
+  name: { fontSize: 16, fontWeight: '600', color: colors.secondary },
+  details: { fontSize: 14, color: colors.primary },
+  empty: { textAlign: 'center', marginTop: 40, fontSize: 16, color: colors.secondary },
   footer: { marginTop: 24 },
-  total: { fontSize: 18, fontWeight: 'bold', marginBottom: 12 },
+  total: { fontSize: 18, fontWeight: 'bold', marginBottom: 12, color: colors.secondary },
 });
