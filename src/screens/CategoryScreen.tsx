@@ -4,6 +4,7 @@ import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { Product } from '../models/Product'; 
 import { products } from '../data/products'; 
 import ProductCard from '../components/ProductCard';
+import { colors } from '../theme/themes';
 
 type CategoryRouteProp = RouteProp<{ params: { category: string } }, 'params'>;
 
@@ -29,6 +30,6 @@ export default function CategoryScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 16 },
+  container: { flex: 1, padding: 16, backgroundColor: colors.background },
+  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 16, color: colors.secondary, marginTop: 32 }
 });
