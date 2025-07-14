@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { getOrderHistory } from '../store/orderStore';
 import { Order } from '../models/Order';
+import { colors } from '../theme/themes';
 
 export default function OrdersScreen() {
   const [orders, useOrders] = useState<Order[]>([])
@@ -42,11 +43,11 @@ export default function OrdersScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 16 },
-  empty: { fontSize: 16, textAlign: 'center', marginTop: 32 },
-  order: { marginBottom: 24, paddingBottom: 12, borderBottomWidth: 1, borderColor: '#ccc' },
-  date: { fontWeight: '600', marginBottom: 6 },
-  item: { fontSize: 14, marginLeft: 8 },
-  total: { marginTop: 6, fontWeight: 'bold' },
+  container: { flex: 1, padding: 16, backgroundColor: colors.background },
+  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 16, color: colors.secondary, marginTop: 32 },
+  empty: { fontSize: 16, textAlign: 'center', marginTop: 32, color: colors.secondary },
+  order: { marginBottom: 24, paddingBottom: 12, borderBottomWidth: 1, borderColor: colors.border },
+  date: { fontWeight: '600', marginBottom: 6, color: colors.secondary },
+  item: { fontSize: 14, marginLeft: 8, color: colors.secondary },
+  total: { marginTop: 6, fontWeight: 'bold', color: colors.primary },
 });
