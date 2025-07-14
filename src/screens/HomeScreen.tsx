@@ -17,12 +17,6 @@ export default function HomeScreen() {
       <View>
         <View style={styles.titleContainer}>
           <Text style={[styles.title, styles.mainTitle]}>DevCart</Text>
-          <TouchableOpacity 
-            style={[styles.button, styles.searchButton]} 
-            onPress={() => navigation.navigate('Search')} 
-          >
-            <FontAwesome size={24} name='search' color={colors.secondary} />
-          </TouchableOpacity>
         </View>
         <Text style={styles.title}>Categorias</Text>
         <FlatList 
@@ -66,18 +60,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     color: colors.secondary
   },
-  searchButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: colors.border
-  },
   list: { paddingBottom: 16 },
   categoriesButtonView: { alignItems: 'center' },
-  button: {
-    backgroundColor: colors.primary,
-    padding: 8,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
   row: { justifyContent: 'space-between' },
 });

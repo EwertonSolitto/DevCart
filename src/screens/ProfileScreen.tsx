@@ -1,23 +1,44 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { ComponentProps } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { colors } from '../theme/themes';
 
 export default function ProfileScreen() {
   const { user, logout } = useAuth();
   const navigation = useNavigation()
+  const profileButtons: Array<{ 
+    name: string, icon: 
+    ComponentProps<typeof FontAwesome>['name'] ,
+    onPress: () => void }
+  > = [
+    { name: 'Histórico de compras', icon: 'list-ul' ,onPress: () => navigation.navigate('Orders') },
+    { name: 'Dados da conta', icon: 'address-book-o', onPress: () => navigation.navigate('AccountData') },
+    { name: 'Favoritos', icon: 'heart', onPress: () => navigation.navigate('Favorites')},
+    { name: 'Sair', icon: 'sign-out', onPress: logout }
+  ]
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Olá, {user?.name}</Text>
-
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Orders')}>
-        <Text style={styles.buttonText}>Histórico</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.button} onPress={logout}>
-        <Text style={styles.buttonText}>Sair</Text>
-      </TouchableOpacity>
+      <View style={styles.profileContainer}>
+        <FontAwesome name='user-circle' color={colors.secondary} size={108} />
+        <Text style={styles.profileName}>{user?.name}</Text>
+      </View>
+      
+      <FlatList 
+        data={profileButtons}
+        style={styles.buttonList}
+        renderItem={({item}) => (
+          <TouchableOpacity style={styles.button} onPress={item.onPress}>
+            <View style={styles.buttonTextContainer}>
+              <FontAwesome name={item.icon} size={16} color={colors.secondary} />
+              <Text style={styles.buttonText}>{item.name}</Text>
+            </View>
+            <FontAwesome name={'angle-right'} size={20} color={colors.secondary} />
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 }

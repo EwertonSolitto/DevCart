@@ -23,6 +23,7 @@ import { SplashScreen } from '../screens/SplashScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { colors } from '../theme/themes';
 import { Pressable } from 'react-native';
+import { AccountDataScreen } from '../screens/AccountDataScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -76,12 +77,13 @@ function ProfileStack() {
     <Stack.Navigator screenOptions={defaultOptions}>
       <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
       <Stack.Screen name='Orders' component={OrdersScreen} />
+      <Stack.Screen name='Favorites' component={FavoriteStack} />
+      <Stack.Screen name='AccountData' component={AccountDataScreen} />
     </Stack.Navigator>
   )
 }
 
 function TabNavigation() {
-  const favoriteCount = useFavoriteStore((state) => state.favorites.length)
   const cartCount = useCartStore((state) => (
     state.cart.reduce((total, item) => total + item.quantity, 0)
   ))
@@ -91,7 +93,7 @@ function TabNavigation() {
       ...defaultOptions,
       tabBarIcon: ({ color, size }) => {
         if (route.name === 'Home') return <FontAwesome name='home' size={32} color={color} />
-        if (route.name === 'Favorites') return <FontAwesome name='heart' size={32} color={color} />
+        if (route.name === 'Search') return <FontAwesome name='search' size={32} color={color} />
         if (route.name === 'Cart') return <FontAwesome name='shopping-cart' size={32} color={color} />
         if (route.name === 'Profile') return <FontAwesome name='user' size={32} color={color} />
       },
@@ -116,13 +118,7 @@ function TabNavigation() {
       animation: 'shift',
     })}>
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen 
-        name="Favorites" 
-        component={FavoriteStack} 
-        options={{
-          tabBarBadge: favoriteCount > 0 ? favoriteCount : undefined
-        }}
-      />
+      <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen
         name="Cart" 
         component={CartStack} 
