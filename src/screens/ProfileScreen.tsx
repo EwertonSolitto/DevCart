@@ -44,12 +44,18 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 32 },
+  container: { flex: 1, alignItems: 'center', backgroundColor: colors.background, paddingTop: 64, gap: 48 },
+  profileContainer: { alignItems: 'center', gap: 16 },
+  profileName: { fontSize: 28, color: colors.secondary, fontWeight: 500 },
+  buttonList: { width: '90%', marginInline: 16 },
   button: {
-    backgroundColor: '#ff3b30',
-    padding: 16,
-    borderRadius: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBlock: 20,
+    paddingInline: 12
   },
-  buttonText: { color: '#fff', fontWeight: 'bold' },
+  buttonTextContainer: { flexDirection: 'row', gap: 8, alignItems: 'center' },
+  buttonText: { color: colors.secondary, fontWeight: 500, fontSize: 16 },
 });
