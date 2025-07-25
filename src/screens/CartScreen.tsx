@@ -25,7 +25,7 @@ export default function CartScreen() {
       <Text style={styles.title}>Carrinho</Text>
       <FlatList
         data={cart}
-        keyExtractor={(item) => item.product.id}
+        keyExtractor={(item) => item.product.productId}
         contentContainerStyle={styles.containerList}
         renderItem={({ item }) => (
           <View style={styles.item}>
@@ -34,15 +34,15 @@ export default function CartScreen() {
               Quantidade: {item.quantity} | R$ {(item.product.price * item.quantity).toFixed(2)}
             </Text>
             <View style={styles.quantityRow}>
-              <TouchableOpacity onPress={() => decreaseQuantity(item.product.id)} style={styles.qtyButton}>
+              <TouchableOpacity onPress={() => decreaseQuantity(item.product.productId)} style={styles.qtyButton}>
                 <Text style={styles.qtyText}>−</Text>
               </TouchableOpacity>
               <Text style={styles.qtyValue}>{item.quantity}</Text>
-              <TouchableOpacity onPress={() => increaseQuantity(item.product.id)} style={styles.qtyButton}>
+              <TouchableOpacity onPress={() => increaseQuantity(item.product.productId)} style={styles.qtyButton}>
                 <Text style={styles.qtyText}>+</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => removeFromCart(item.product.id)}>
+            <TouchableOpacity onPress={() => removeFromCart(item.product.productId)}>
               <Text style={styles.remove}>Remover</Text>
             </TouchableOpacity>
           </View>

@@ -81,7 +81,7 @@ export default function SearchScreen() {
 
       <FlatList
         data={filtered}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.productId}
         renderItem={({ item }) => <ProductCard product={item} />}
       />
     </View>

@@ -20,7 +20,7 @@ export default function FavoritesScreen() {
       <Text style={styles.title}>Favoritos</Text>
       <FlatList
         data={favorite}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.productId}
         contentContainerStyle={{ padding: 16 }}
         renderItem={({ item }) => (
           <ProductCard product={item} />

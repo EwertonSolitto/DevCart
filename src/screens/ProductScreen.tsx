@@ -23,7 +23,7 @@ export default function ProductScreen() {
   const toggleFavorite = useFavoriteStore((state) => state.toggleFavorite);
   const navigation = useNavigation()
 
-  const existing = favorite.find((item) => item.id === product.id)
+  const existing = favorite.find((item) => item.productId === product.productId)
 
   return (
     <ScrollView style={styles.container}>

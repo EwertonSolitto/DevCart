@@ -29,7 +29,7 @@ export default function OrdersScreen() {
             <View style={styles.order}>
               <Text style={styles.date}>{item.date}</Text>
               {item.items.map(({ product, quantity }) => (
-                <Text key={product.id} style={styles.item}>
+                <Text key={product.productId} style={styles.item}>
                   {quantity}x {product.name}
                 </Text>
               ))}

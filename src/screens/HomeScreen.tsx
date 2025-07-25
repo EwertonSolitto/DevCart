@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, FlatList, StyleSheet, Text, ScrollView } from 'react-native';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { useNavigation } from '@react-navigation/native';
 import { categories } from '../data/categories';
 import { CategoryCard } from '../components/CategoryCard';
 import { colors } from '../theme/themes';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { LinkButton } from '../components/Button';
 
 export default function HomeScreen() {
@@ -33,7 +32,7 @@ export default function HomeScreen() {
         <Text style={styles.title}>DevCart - Destaques</Text>
         <FlatList
           data={products.slice(0, 100)}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.productId}
           renderItem={({ item }) => <ProductCard product={item} />}
           contentContainerStyle={styles.list}
           scrollEnabled={false}

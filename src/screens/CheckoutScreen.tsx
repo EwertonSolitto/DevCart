@@ -36,7 +36,7 @@ export default function CheckoutScreen() {
 
       <FlatList
         data={cart}
-        keyExtractor={(item) => item.product.id}
+        keyExtractor={(item) => item.product.productId}
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Text style={styles.name}>{item.product.name}</Text>

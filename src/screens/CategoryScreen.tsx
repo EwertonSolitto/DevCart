@@ -22,7 +22,7 @@ export default function CategoryScreen() {
 
       <FlatList
         data={filteredProducts}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.productId}
         renderItem={({ item }) => <ProductCard product={item} />}
       />
     </View>

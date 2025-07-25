@@ -16,16 +16,16 @@ export const useFavoriteStore = create<FavoriteStore>()(
       favorites: [],
         toggleFavorite: (product: Product) => {
         const { favorites } = get()
-        const existing = favorites.find((item) => item.id === product.id);
+        const existing = favorites.find((item) => item.productId === product.productId);
 
         if (!existing) {
           set({ favorites: [...favorites, product] });
         } else {
-          set({ favorites: favorites.filter((item) => item.id !== product.id)})
+          set({ favorites: favorites.filter((item) => item.productId !== product.productId)})
         }
       },
       isFavorite: (productId) => {
-        return get().favorites.some((p) => p.id === productId);
+        return get().favorites.some((p) => p.productId === productId);
       },
     }),
     {
